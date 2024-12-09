@@ -7,7 +7,7 @@ st.set_page_config(
 )
 
 # Function to convert the video to mp3
-def download_audio(url, output_folder='C:/Users/User/Documents/Project/mp3'):
+def download_audio(url, output_folder='"C:/Users/User/Downloads"'):
     try:
         # Set up options for yt-dlp
         ffmpeg_location = r"C:\ffmpeg-7.1-essentials_build\bin\ffmpeg.exe" 
