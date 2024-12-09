@@ -1,6 +1,7 @@
 import yt_dlp
 import os
 import streamlit as st
+import subprocess
 
 # Set the page title and icon
 st.set_page_config(
@@ -8,16 +9,28 @@ st.set_page_config(
     page_icon="🎵"
 )
 
+# Function to install ffmpeg dynamically (if not already installed)
+def install_ffmpeg():
+    ffmpeg_url = "https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-i686-static.tar.xz"
+    if not os.path.exists("ffmpeg"):
+        # Download ffmpeg if it's missing
+        os.system(f"wget {ffmpeg_url} -O ffmpeg.tar.xz")
+        os.system("tar -xf ffmpeg.tar.xz")
+        os.system("rm ffmpeg.tar.xz")
+        os.environ["PATH"] += os.pathsep + os.getcwd() + "/ffmpeg-*/bin"  # Add ffmpeg to PATH
+
 # Function to convert the video to mp3
 def download_audio(url, output_folder='downloads'):
     try:
+        # Install ffmpeg if not already present
+        install_ffmpeg()
+
         # Ensure output folder exists
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
         
         # Set up options for yt-dlp
-        ffmpeg_location = r"/usr/bin/ffmpeg"  # Default location for ffmpeg in a server environment
-        
+        ffmpeg_location = r"ffmpeg"  # Use the ffmpeg in the current path
         ydl_opts = {
             'format': 'bestaudio/best',  # Download best audio format
             'extractaudio': True,  # Only extract audio
