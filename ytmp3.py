@@ -10,7 +10,7 @@ st.set_page_config(
 def download_audio(url, output_folder='"C:/Users/User/Downloads"'):
     try:
         # Set up options for yt-dlp
-        ffmpeg_location = r"C:\ffmpeg-7.1-essentials_build\bin\ffmpeg.exe" 
+        # ffmpeg_location = r"C:\ffmpeg-7.1-essentials_build\bin\ffmpeg.exe" 
         ydl_opts = {
             'format': 'bestaudio/best',  # Download best audio format
             'extractaudio': True,  # Only extract audio
@@ -21,7 +21,7 @@ def download_audio(url, output_folder='"C:/Users/User/Downloads"'):
                 'preferredcodec': 'mp3',
                 'preferredquality': '192',
             }],
-            'ffmpeg_location': ffmpeg_location
+            # 'ffmpeg_location': ffmpeg_location
         }
 
         # Download the audio
